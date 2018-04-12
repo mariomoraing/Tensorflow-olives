@@ -1,0 +1,50 @@
+Se necesita tener instalado Python. En este caso fue probado en su versión 3.5.5 y sistema operativo Windows.
+
+El reentrenamiento se hizo con TensorFlow for Poets 2.
+
+Para probar el funcionamiento, abrir la consola, ir a la ruta donde tengamos las carpetas tf_olives_github y tf_olives_scripts
+y ejecutar el siguiente comando:
+
+python -m tf_olives_scripts.label_image ^
+  --labels=tf_olives/labels.txt ^
+  --graph=tf_olives/retraining.pb ^
+  --image=tf_olives/test/<Insertar imagen de prueba>
+
+Ejemplo:
+
+python -m tf_olives_scripts.label_image ^
+  --labels=tf_olives/labels.txt ^
+  --graph=tf_olives/retraining.pb ^
+  --image=tf_olives/test/IMG_20180410_114048.jpg
+
+>>Evaluation time (1-image): 1.081s
+
+
+
+El script utiliza un archivo python de TensorFlow For Poets 2 llamado label_image, el cual fue ligeramente modificado para 
+mostrar resultados más personalizados y acordes al proyecto.
+
+Para bajar el tiempo de evaluación, se puede cambiar "retraining.pb" por "optimized_retraining.pb". También se puede utilizar 
+"optimized_rounded.pb", pero podría arrojar resultados menos exactos. Sin embargo, en los casos para probar exactitud, optimized_rounded varió respecto a optimized_retraining, solo en los sexto y séptimo decimales.
+
+Ejemplos:
+
+
+python -m tf_olives_scripts.label_image ^
+  --labels=tf_olives/labels.txt ^
+  --graph=tf_olives/optimized_retraining.pb ^
+  --image=tf_olives/test/IMG_20180410_114048.jpg
+
+>>Evaluation time (1-image): 0.768s
+
+
+
+python -m tf_olives_scripts.label_image ^
+  --labels=tf_olives/labels.txt ^
+  --graph=tf_olives/optimized_rounded.pb ^
+  --image=tf_olives/test/IMG_20180410_114048.jpg
+
+>>Evaluation time (1-image): 0.750s
+
+
+Si se quiere probar otras imágenes, hay que cambiar el argumento "--image" del script, para luego pasarle la ruta y archivo que deseamos que evalúe.
